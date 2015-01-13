@@ -29,6 +29,7 @@ import javax.servlet.DispatcherType;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.util.EnumSet;
+import java.util.Properties;
 
 /**
  *
@@ -59,6 +60,8 @@ public class RestBean implements InitializingBean, ClusterInfoAware, DisposableB
     private WebAppContext webAppContext;
 
     private boolean jettyStarted = false;
+
+    private Properties properties;
 
     @Override
     public void destroy() {
@@ -97,6 +100,10 @@ public class RestBean implements InitializingBean, ClusterInfoAware, DisposableB
 
     public void setLocators(String locators) {
         this.locators = locators;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties= properties;
     }
 
     @Override
@@ -171,6 +178,11 @@ public class RestBean implements InitializingBean, ClusterInfoAware, DisposableB
             logger.debug("Applying locators "+ilocators);
             webAppContext.setInitParameter("lookupLocators", ilocators);
         }
+
+        if (properties.getProperty("datetime_format") != null) {
+            webAppContext.setInitParameter("datetime_format", properties.getProperty("datetime_format"));
+        }
+
         server.setHandler(webAppContext);
         try {
             server.start();
