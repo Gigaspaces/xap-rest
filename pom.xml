@@ -38,4 +38,8 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>xap-rest</finalName>
+    </build>
+
 </project>
