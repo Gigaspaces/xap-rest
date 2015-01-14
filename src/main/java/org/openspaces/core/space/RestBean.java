@@ -179,7 +179,7 @@ public class RestBean implements InitializingBean, ClusterInfoAware, DisposableB
             webAppContext.setInitParameter("lookupLocators", ilocators);
         }
 
-        if (properties.getProperty("datetime_format") != null) {
+        if (properties != null && properties.getProperty("datetime_format") != null) {
             webAppContext.setInitParameter("datetime_format", properties.getProperty("datetime_format"));
         }
 
