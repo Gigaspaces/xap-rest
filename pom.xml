@@ -18,7 +18,7 @@
 
 
     <properties>
-        <gsVersion>${project.version}</gsVersion>
+        <gsVersion>10.1.0-SNAPSHOT</gsVersion>
         <jetty.version>8.1.8.v20121106</jetty.version>
     </properties>
 
