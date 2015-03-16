@@ -164,7 +164,7 @@ public class RestBean implements InitializingBean, ClusterInfoAware, DisposableB
         logger.info("Starting REST service on port [" + jettyPort + "]");
         webAppContext = new WebAppContext();
         filterHolder = new FilterHolder(RequestStatisticsFilter.class);
-        webAppContext.addFilter(filterHolder, "/", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
+        webAppContext.addFilter(filterHolder, "/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
         webAppContext.setContextPath("/");
         webAppContext.setWar(Environment.getHomeDirectory() + "/lib/platform/rest/RESTData.war");
         webAppContext.setInitParameter("port", port);
