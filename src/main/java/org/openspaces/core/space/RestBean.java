@@ -11,6 +11,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.jini.rio.boot.BootUtil;
 import org.openspaces.core.GigaSpace;
 import org.openspaces.core.cluster.ClusterInfo;
 import org.openspaces.core.cluster.ClusterInfoAware;
@@ -26,7 +27,6 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.servlet.DispatcherType;
-import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.util.EnumSet;
 import java.util.Properties;
@@ -196,18 +196,18 @@ public class RestBean implements InitializingBean, ClusterInfoAware, DisposableB
 
     @Override
     public ServiceDetails[] getServicesDetails() {
-        String restIP = System.getenv("NIC_ADDR");
-        if (restIP == null) {
-            try {
-                restIP = Inet4Address.getLocalHost().getHostAddress();
-            } catch (UnknownHostException e) {
-                logger.error("Unable to get host address for rest service", e);
-            }
+        String host = null;
+        try {
+            host = BootUtil.getHostAddress();
+        } catch (UnknownHostException e) {
+            logger.error("Unable to get host address for rest service", e);
         }
-        //TODO check if restIP is null
 
-        JeeServiceDetails details;
-        details = new JeeServiceDetails(restIP, jettyPort, 0, "/", false, "jetty", JeeType.CUSTOM);
+        if (host == null) {
+            logger.error("Unable to get host address for rest service, using NaN as host address.");
+            host = "NaN";
+        }
+        JeeServiceDetails details = new JeeServiceDetails(host, jettyPort, 0, "/", false, "jetty", JeeType.CUSTOM);
         return new ServiceDetails[]{details};
     }
 
