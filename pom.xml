@@ -6,7 +6,7 @@
 
     <groupId>org.openspaces</groupId>
     <artifactId>xap-rest</artifactId>
-    <version>10.1.0-SNAPSHOT</version>
+    <version>10.1.1-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -18,7 +18,7 @@
 
 
     <properties>
-        <gsVersion>10.1.0-SNAPSHOT</gsVersion>
+        <gsVersion>10.1.1-SNAPSHOT</gsVersion>
         <jetty.version>8.1.8.v20121106</jetty.version>
     </properties>
 
