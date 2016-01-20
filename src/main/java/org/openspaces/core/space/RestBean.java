@@ -2,7 +2,7 @@ package org.openspaces.core.space;
 
 import com.gigaspaces.internal.utils.StringUtils;
 import com.j_spaces.core.IJSpace;
-import com.j_spaces.kernel.Environment;
+import com.gigaspaces.start.SystemInfo;
 import net.jini.core.discovery.LookupLocator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -166,7 +166,7 @@ public class RestBean implements InitializingBean, ClusterInfoAware, DisposableB
         filterHolder = new FilterHolder(RequestStatisticsFilter.class);
         webAppContext.addFilter(filterHolder, "/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
         webAppContext.setContextPath("/");
-        webAppContext.setWar(Environment.getHomeDirectory() + "/lib/platform/rest/RESTData.war");
+        webAppContext.setWar(SystemInfo.singleton().locations().lib() + "/platform/rest/RESTData.war");
         webAppContext.setInitParameter("port", port);
         webAppContext.setInitParameter("spaceName", ispaceName);
         if (igroups != null && !igroups.equalsIgnoreCase("null")) {
